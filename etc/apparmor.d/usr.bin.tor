@@ -1,0 +1,28 @@
+abi <abi/3.0>,
+
+include <tunables/global>
+
+/usr/bin/tor {
+  include <abstractions/base>
+
+  capability setgid,
+  capability setuid,
+
+  network inet dgram,
+  network inet6 dgram,
+  network inet stream,
+  network inet6 stream,
+  network netlink raw,
+
+  /etc/passwd r,
+  /usr/bin/tor mr,
+  /usr/share/tor/* r,
+  owner /etc/nsswitch.conf r,
+  owner /etc/ssl/openssl.cnf r,
+  owner /etc/tor/torrc r,
+  owner /sys/devices/system/cpu/possible r,
+  owner /var/lib/tor/ r,
+  owner /var/lib/tor/** rw,
+  owner /var/lib/tor/lock rwk,
+
+}
