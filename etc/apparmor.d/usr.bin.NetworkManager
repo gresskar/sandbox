@@ -1,0 +1,51 @@
+abi <abi/3.0>,
+
+include <tunables/global>
+
+/usr/bin/NetworkManager {
+  include <abstractions/base>
+
+  capability audit_write,
+  capability dac_override,
+  capability net_admin,
+  capability net_bind_service,
+  capability net_raw,
+
+  network inet dgram,
+  network inet6 dgram,
+  network inet6 raw,
+  network netlink raw,
+  network packet dgram,
+
+  /proc/*/stat r,
+  /usr/bin/NetworkManager mr,
+  owner /dev/rfkill rw,
+  owner /etc/ r,
+  owner /etc/NetworkManager/** r,
+  owner /etc/NetworkManager/system-connections/* w,
+  owner /etc/machine-id r,
+  owner /etc/nsswitch.conf r,
+  owner /etc/passwd r,
+  owner /etc/resolv.conf rw,
+  owner /etc/resolv.conf.?????? rw,
+  owner /etc/ssl/openssl.cnf r,
+  owner /proc/cmdline r,
+  owner /proc/sys/kernel/random/boot_id r,
+  owner /proc/sys/net/** rw,
+  owner /run/NetworkManager/ rw,
+  owner /run/NetworkManager/** rw,
+  owner /run/udev/data/+ieee80211:phy* r,
+  owner /run/udev/data/+pci:0000:* r,
+  owner /run/udev/data/+rfkill:rfkill* r,
+  owner /run/udev/data/n? r,
+  owner /run/udev/data/n?? r,
+  owner /sys/bus/ r,
+  owner /sys/class/ r,
+  owner /sys/class/net/ r,
+  owner /sys/class/rfkill/ r,
+  owner /sys/devices/pci0000:00/** r,
+  owner /sys/devices/virtual/net/** r,
+  owner /var/lib/NetworkManager/ r,
+  owner /var/lib/NetworkManager/** rw,
+
+}
