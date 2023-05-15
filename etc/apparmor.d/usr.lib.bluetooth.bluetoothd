@@ -1,0 +1,24 @@
+abi <abi/3.0>,
+
+include <tunables/global>
+
+/usr/lib/bluetooth/bluetoothd {
+  include <abstractions/base>
+
+  capability net_admin,
+  capability net_bind_service,
+
+  network alg seqpacket,
+  network bluetooth raw,
+  network bluetooth seqpacket,
+  network bluetooth stream,
+
+  /usr/lib/bluetooth/bluetoothd mr,
+  owner /dev/rfkill rw,
+  owner /dev/uinput rw,
+  owner /etc/bluetooth/* r,
+  owner /sys/devices/pci0000:00/**/bluetooth/** r,
+  owner /sys/devices/virtual/dmi/id/chassis_type r,
+  owner /var/lib/bluetooth/** rw,
+
+}
