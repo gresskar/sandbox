@@ -1,0 +1,25 @@
+abi <abi/3.0>,
+
+include <tunables/global>
+
+/usr/bin/pipewire {
+  include <abstractions/base>
+
+  capability sys_ptrace,
+
+  ptrace read peer=unconfined,
+
+  / r,
+  /dev/snd/* rw,
+  /etc/alsa/** r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/pipewire/** r,
+  /sys/devices/virtual/dmi/id/* r,
+  /usr/bin/pipewire mr,
+  /usr/share/alsa/** r,
+  /usr/share/pipewire/** r,
+  owner /run/user/1000/pipewire-?.lock rwk,
+  owner /run/user/1000/pulse/pid w,
+
+}
