@@ -1,0 +1,67 @@
+[Unit]
+Description=Anonymizing overlay network for TCP
+After=syslog.target network.target nss-lookup.target
+
+[Service]
+Type=notify
+NotifyAccess=all
+ExecStartPre=/usr/bin/tor -f /etc/tor/torrc --verify-config
+ExecStart=/usr/bin/tor -f /etc/tor/torrc
+ExecReload=/bin/kill -HUP ${MAINPID}
+KillSignal=SIGINT
+TimeoutSec=60
+Restart=on-failure
+WatchdogSec=1m
+LimitNOFILE=32768
+
+# Paths
+MountAPIVFS=true
+ProtectProc=invisible
+
+# Capabilities
+CapabilityBoundingSet=CAP_SETUID CAP_SETGID CAP_NET_BIND_SERVICE CAP_DAC_READ_SEARCH
+
+# Security
+NoNewPrivileges=true
+#SecureBits=
+
+# Mandatory Access Control
+AppArmorProfile=/etc/apparmor.d/usr.bin.tor
+
+# Process properties
+KeyringMode=private
+
+# Sandboxing
+ReadOnlyPaths=/
+ReadWritePaths=-/var/lib/tor/
+ReadWritePaths=-/var/log/tor/
+NoExecPaths=/
+ExecPaths=/usr/bin/tor /usr/lib/ /usr/lib64/
+PrivateTmp=true
+PrivateDevices=true
+PrivateNetwork=false
+PrivateIPC=true
+PrivateUsers=false
+ProtectHome=true
+ProtectHostname=true
+ProtectClock=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_NETLIN AF_INET AF_INET6
+#RestrictFileSystems=
+RestrictNamespaces=cgroup ipc net nt pid user
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictRealTime=true
+RestrictSUIDSGID=true
+RemoveIPC=true
+
+# System Call Filtering
+SystemCallFilter=~@clock @cpu-emulation @debug @module @obsolete @raw-io @reboot @swap
+SystemCallErrorNumber=EPERM
+SystemCallArchitectures=x86-64
+
+[Install]
+WantedBy=multi-user.target
