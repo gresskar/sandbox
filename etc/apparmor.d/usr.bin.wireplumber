@@ -1,0 +1,39 @@
+abi <abi/3.0>,
+
+include <tunables/global>
+
+/usr/bin/wireplumber {
+  include <abstractions/base>
+
+  network bluetooth raw,
+  network bluetooth seqpacket,
+  network bluetooth stream,
+  network netlink raw,
+
+  /dev/snd/ r,
+  /dev/snd/* rw,
+  /etc/alsa/** r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /opt/rocm/lib/libOpenCL.so.* mr,
+  /proc/asound/** r,
+  /run/systemd/users/1000 r,
+  /run/udev/data/+sound:card? r,
+  /run/udev/data/*:* r,
+  /sys/bus/ r,
+  /sys/bus/media/devices/ r,
+  /sys/class/ r,
+  /sys/class/sound/ r,
+  /sys/devices/pci0000:00/** r,
+  /sys/devices/system/cpu/possible r,
+  /sys/devices/virtual/dmi/id/* r,
+  /sys/devices/virtual/sound/** r,
+  /usr/bin/wireplumber mr,
+  /usr/share/alsa-card-profile/** r,
+  /usr/share/alsa/** r,
+  /usr/share/*/bluez?/* r,
+  /usr/share/wireplumber/** r,
+  owner /home/user/.local/state/wireplumber/ r,
+  owner /home/user/.local/state/wireplumber/* rw,
+
+}
