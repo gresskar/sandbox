@@ -1,0 +1,24 @@
+abi <abi/3.0>,
+
+include <tunables/global>
+
+/usr/bin/wpa_supplicant {
+  include <abstractions/base>
+
+  capability net_admin,
+  capability net_raw,
+  capability sys_module,
+
+  network inet dgram,
+  network netlink raw,
+  network packet dgram,
+
+  /usr/bin/wpa_supplicant mr,
+  owner /dev/rfkill r,
+  owner /etc/libnl/classid r,
+  owner /etc/ssl/openssl.cnf r,
+  owner /proc/sys/net/** rw,
+  owner /run/wpa_supplicant/ w,
+  owner /run/wpa_supplicant/* rw,
+
+}
