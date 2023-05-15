@@ -18,6 +18,7 @@ include <tunables/global>
   /etc/passwd r,
   /usr/bin/tor mr,
   /usr/share/tor/* r,
+  /var/lib/tor/** r,
   owner /etc/nsswitch.conf r,
   owner /etc/ssl/openssl.cnf r,
   owner /etc/tor/torrc r,
